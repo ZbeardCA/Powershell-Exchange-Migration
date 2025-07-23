@@ -10,4 +10,17 @@ Get-ReceiveConnector "Anonymous Relay" | Add-ADPermission -User "NT AUTHORITY\AN
 #Test
 Send-MailMessage -SmtpServer  -From relay@domain.de -To recicpient@domain.de -Subject "TEST RELAY"
 
+Test-Mailflow -TargetEmailAddress POSTFACHNAME@DOMAIN.DE
 
+
+##Autodiscover-Cache & Outlook-Einträge bereinigen
+
+#Client-Side
+# Windows
+ipconfig /flushdns
+# Outlook
+outlook.exe /cleanserverrules
+
+#Server-Side
+
+Set-ClientAccessService EXCHANGESERVERNAME -ClearAlternateServiceAccountCredentials
