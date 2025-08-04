@@ -6,36 +6,32 @@ Get-ReceiveConnector "Anonymous Relay" | Add-ADPermission -User "NT-Authority\An
 
 #oder in Englisch
 Get-ReceiveConnector "Anonymous Relay" | Add-ADPermission -User "NT AUTHORITY\ANONYMOUS LOGON" -ExtendedRights "Ms-Exch-SMTP-Accept-Any-Recipient"
-
-#Test
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Testmail
 Send-MailMessage -SmtpServer  -From relay@domain.de -To recicpient@domain.de -Subject "TEST RELAY"
 
 Test-Mailflow -TargetEmailAddress POSTFACHNAME@DOMAIN.DE
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Autodiscover-Cache & Outlook-Einträge bereinigen
 
+##Client-Side
 
-##Autodiscover-Cache & Outlook-Einträge bereinigen
-
-#Client-Side
-# Windows
+###Windows
 ipconfig /flushdns
-# Outlook
+
+####Outlook
 outlook.exe /cleanserverrules
 
-#Server-Side
+###Server-Side
 
 Set-ClientAccessService EXCHANGESERVERNAME -ClearAlternateServiceAccountCredentials
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Buildnummer eines Exchange
+Get-Command Exsetup.exe | ForEach-Object {$_.FileVersionInfo}
 
-
-
-
-
-
-
-
-
-
-
-
+#URL
+https://learn.microsoft.com/de-de/exchange/new-features/build-numbers-and-release-dates
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
 #TTL im Windows DNS anpassen
 Get-DnsServerResourceRecord -zonename "ZONENNAME"
 
