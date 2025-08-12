@@ -72,4 +72,7 @@ Get-MoveRequest -BatchName "BATCHNAME" |
 # Nur schon fertig gespulte Moves
 Get-MoveRequest -BatchName "BATCHNAME" -MoveStatus Synced
 
+#Datenbanken umbennenen und mit Logs verschieben
 
+Get-MailboxDatabase -Server SERVERNAME | Set-MailboxDatabase -Name DATENBANKNAME
+Move-DatabasePath DATENBANKNAME -EdbFilePath E:\xxx\xxx.edb -LogFolderPath F:\xxx
