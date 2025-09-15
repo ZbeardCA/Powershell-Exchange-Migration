@@ -14,16 +14,14 @@ Get-MoveRequest -MoveStatus AutoSuspended | Resume-MoveRequest
 
 # Umzug mehrere Postfächer MIT Archiv.
 
-$users = 'NAME'
->> foreach ($u in $users) {
->> New-MoveRequest `
->>     -Identity $u `
->>     -TargetDatabase "DATENBANKNAME" `
->>     -ArchiveTargetDatabase "ArchivMDB01" `
->>     -BadItemLimit 50 `
->>     -SuspendWhenReadyToComplete `
->>     -BatchName "Admin"
->> }
+
+$Users = @("NAME@KUNDE.de", "NAME@KUNDE.de", "NAME@KUNDE.de")
+$TargetDatabase = "MDB01"
+
+foreach ($User in $Users) {
+    New-MoveRequest -Identity $User -TargetDatabase $TargetDatabase -SuspendWhenReadyToComplete -BatchName "BatchMove_$(Get-Date -Format 'yyyyMMdd')"
+}
+
 
 #Auslesen Postfachdaten inklusive Archive:
 
