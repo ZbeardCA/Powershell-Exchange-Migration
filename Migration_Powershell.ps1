@@ -8,7 +8,9 @@ New-MoveRequest `
     -SuspendWhenReadyToComplete `
     -BatchName "NAMEVOMBATCH"
 
+# Umzug finalisieren
 
+Get-MoveRequest -MoveStatus AutoSuspended | Resume-MoveRequest
 
 # Umzug mehrere Postfächer MIT Archiv.
 
