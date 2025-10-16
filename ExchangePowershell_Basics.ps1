@@ -30,6 +30,10 @@ Set-ClientAccessService EXCHANGESERVERNAME -ClearAlternateServiceAccountCredenti
 Get-Command Exsetup.exe | ForEach-Object {$_.FileVersionInfo}
 
 #URL
-https://learn.microsoft.com/de-de/exchange/new-features/build-numbers-and-release-dates
+>>> https://learn.microsoft.com/de-de/exchange/new-features/build-numbers-and-release-dates
 -------------------------------------------------------------------------------------------------------------------------------------------------------------
-#
+#Patchstand
+
+Get-Command Exsetup.exe | ForEach-Object {$_.FileVersionInfo}
+
+>>> https://learn.microsoft.com/de-de/exchange/new-features/build-numbers-and-release-dates
