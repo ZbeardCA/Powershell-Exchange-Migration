@@ -37,3 +37,12 @@ Get-Command Exsetup.exe | ForEach-Object {$_.FileVersionInfo}
 Get-Command Exsetup.exe | ForEach-Object {$_.FileVersionInfo}
 
 >>> https://learn.microsoft.com/de-de/exchange/new-features/build-numbers-and-release-dates
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+#Cals auslesen nach Nummer
+
+(Get-ExchangeServerAccessLicenseUser -LicenseName "Exchange Server 2016 Standard CAL").Count
+
+(Get-ExchangeServerAccessLicenseUser -LicenseName "Exchange Server 2016 Enterprise CAL").Count
+
+
