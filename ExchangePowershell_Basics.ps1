@@ -7,6 +7,8 @@ Get-ReceiveConnector "Anonymous Relay" | Add-ADPermission -User "NT-Authority\An
 #oder in Englisch
 Get-ReceiveConnector "Anonymous Relay" | Add-ADPermission -User "NT AUTHORITY\ANONYMOUS LOGON" -ExtendedRights "Ms-Exch-SMTP-Accept-Any-Recipient"
 
+Add-ADPermission -User ([System.Security.Principal.SecurityIdentifier]::new(‘S-1-5-7’).Translate([System.Security.Principal.NTAccount]).Value) -ExtendedRights MS-Exch-SMTP-Accept-Any-Recipient
+
 #Kopieren von einem Exchange Konnektor
 
 (Get-ReceiveConnector -Identity "EXCHANGENAME\KONNEKTORNAME").RemoteIPRanges | Sort-Object | Format-Table
