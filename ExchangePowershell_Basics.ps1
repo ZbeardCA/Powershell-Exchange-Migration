@@ -6,6 +6,15 @@ Get-ReceiveConnector "Anonymous Relay" | Add-ADPermission -User "NT-Authority\An
 
 #oder in Englisch
 Get-ReceiveConnector "Anonymous Relay" | Add-ADPermission -User "NT AUTHORITY\ANONYMOUS LOGON" -ExtendedRights "Ms-Exch-SMTP-Accept-Any-Recipient"
+
+#Kopieren von einem Exchange Konnektor
+
+(Get-ReceiveConnector -Identity "EXCHANGENAME\KONNEKTORNAME").RemoteIPRanges | Sort-Object | Format-Table
+
+New-ReceiveConnector -Name "NEUERKONNEKTOR" -Server "SERVERNAME" -Usage Custom -TransportRole FrontEndTransport -PermissionGroups AnonymousUsers -Bindings 0.0.0.0:25 -RemoteIPRanges (Get-ReceiveConnector "SERVERNAME\ALTERKONNEKTOR").RemoteIPRanges
+
+Get-ReceiveConnector "SERVERNAME\KONNEKTORNAME" | Add-ADPermission -User 'NT AUTHORITY\Anonymous Logon' -ExtendedRights MS-Exch-SMTP-Accept-Any-Recipient
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 #Testmail
 Send-MailMessage -SmtpServer  -From relay@domain.de -To recicpient@domain.de -Subject "TEST RELAY"
