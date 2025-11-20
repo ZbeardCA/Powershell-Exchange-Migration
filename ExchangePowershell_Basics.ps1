@@ -56,4 +56,30 @@ Get-Command Exsetup.exe | ForEach-Object {$_.FileVersionInfo}
 
 (Get-ExchangeServerAccessLicenseUser -LicenseName "Exchange Server 2016 Enterprise CAL").Count
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+###Dienste verwalten
+
+#Abfragen
+Get-Service | Where-Object { $_.DisplayName -like "*Exchange*" -and $_.DisplayName -notlike "*Hyper-V*" } | Format-Table DisplayName, Name, Status
+
+#Alle Neustarten
+Get-Service *Exchange* | Where-Object {$_.DisplayName -notlike "*Hyper-V*"} | Restart-Service -Force
+
+#Nur aktive
+$services = Get-Service | Where-Object { $_.Name -like "MSExchange*" -and $_.Status -eq "Running" }
+
+foreach ($service in $services) {
+    Restart-Service $service.Name -Force
+}
+
+#Alle Disabled wieder auf automatic stellen
+
+Get-Service | Where-Object { $_.DisplayName –like “Microsoft Exchange *” } | Set-Service –StartupType Automatic
+
+#Die Dienste danach starten
+
+Get-Service | Where-Object { $_.DisplayName –like “Microsoft Exchange *” } | Start-Service
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
