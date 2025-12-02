@@ -68,6 +68,9 @@ if ($GridView) {
 # Fortschritt live anzeigen
 Get-MoveRequest -BatchName "BATCHNAME" |
   Get-MoveRequestStatistics | ft DisplayName,Status,PercentComplete
+  
+#Alle
+Get-MoveRequest | Get-MoveRequestStatistics
 
 # Nur schon fertig gespulte Moves
 Get-MoveRequest -BatchName "BATCHNAME" -MoveStatus Synced
