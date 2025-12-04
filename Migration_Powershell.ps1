@@ -63,6 +63,9 @@ if ($GridView) {
 }
 
 
+## Systempostfächer umziehen
+get-mailbox -Arbitration | New-MoveRequest -TargetDatabase DATENBANKNAME
+
 # Monitoring von MoveRequests:
 
 # Fortschritt live anzeigen
