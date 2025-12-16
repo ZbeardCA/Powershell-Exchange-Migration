@@ -93,6 +93,9 @@ Get-MoveRequest -BatchName "BATCHNAME" |
 #Alle
 Get-MoveRequest | Get-MoveRequestStatistics
 
+#Löschen der Moverequests
+Get-MoveRequest | Remove-MoveRequest
+
 # Nur schon fertig gespulte Moves
 Get-MoveRequest -BatchName "BATCHNAME" -MoveStatus Synced
 
@@ -107,33 +110,33 @@ New-MailboxDatabase -Name "MDB01" -Server "SERVERNAME" -EdbFilePath "E:\MDB01\MD
 
 #Virtuelle Verzeichnisse kopieren
 
-$Exchange2019Server = "NEUERSERVER"
-$Exchange2016Server = "ALTERSERVER"
+$NeuerExchange = "NEUERSERVER"
+$AlterExchange = "ALTERSERVER"
 #Get URLs from Exchange 2016 Server
-$autodiscoverhostname = (Get-ClientAccessService $Exchange2016Server).AutoDiscoverServiceInternalUri
-$owainturl = (Get-OwaVirtualDirectory -Server $Exchange2016Server).internalurl
-$owaexturl = (Get-OwaVirtualDirectory -Server $Exchange2016Server).externalurl
-$ecpinturl = (Get-EcpVirtualDirectory -server $Exchange2016Server).internalurl
-$ecpexturl = (Get-EcpVirtualDirectory -server $Exchange2016Server).externalurl
-$ewsinturl = (Get-WebServicesVirtualDirectory -Server $Exchange2016Server).internalurl
-$ewsexturl = (Get-WebServicesVirtualDirectory -Server $Exchange2016Server).externalurl
-$easinturl = (Get-ActiveSyncVirtualDirectory -Server $Exchange2016Server).internalurl
-$easexturl = (Get-ActiveSyncVirtualDirectory -Server $Exchange2016Server).externalurl
-$oabinturl = (Get-OabVirtualDirectory -server $Exchange2016Server).internalurl
-$oabexturl = (Get-OabVirtualDirectory -server $Exchange2016Server).externalurl
-$mapiinturl = (Get-MapiVirtualDirectory -server $Exchange2016Server).internalurl
-$mapiexturl = (Get-MapiVirtualDirectory -server $Exchange2016Server).externalurl
-$OutlAnyInt = (Get-OutlookAnywhere -Server $Exchange2016Server).internalhostname
-$OutlAnyExt = (Get-OutlookAnywhere -Server $Exchange2016Server).externalhostname
+$autodiscoverhostname = (Get-ClientAccessService $AlterExchange).AutoDiscoverServiceInternalUri
+$owainturl = (Get-OwaVirtualDirectory -Server $AlterExchange).internalurl
+$owaexturl = (Get-OwaVirtualDirectory -Server $AlterExchange).externalurl
+$ecpinturl = (Get-EcpVirtualDirectory -server $AlterExchange).internalurl
+$ecpexturl = (Get-EcpVirtualDirectory -server $AlterExchange).externalurl
+$ewsinturl = (Get-WebServicesVirtualDirectory -Server $AlterExchange).internalurl
+$ewsexturl = (Get-WebServicesVirtualDirectory -Server $AlterExchange).externalurl
+$easinturl = (Get-ActiveSyncVirtualDirectory -Server $AlterExchange).internalurl
+$easexturl = (Get-ActiveSyncVirtualDirectory -Server $AlterExchange).externalurl
+$oabinturl = (Get-OabVirtualDirectory -server $AlterExchange).internalurl
+$oabexturl = (Get-OabVirtualDirectory -server $AlterExchange).externalurl
+$mapiinturl = (Get-MapiVirtualDirectory -server $AlterExchange).internalurl
+$mapiexturl = (Get-MapiVirtualDirectory -server $AlterExchange).externalurl
+$OutlAnyInt = (Get-OutlookAnywhere -Server $AlterExchange).internalhostname
+$OutlAnyExt = (Get-OutlookAnywhere -Server $AlterExchange).externalhostname
 #Configure Exchange 2019 Server
-Get-OwaVirtualDirectory -Server $Exchange2019Server | Set-OwaVirtualDirectory -internalurl $owainturl -externalurl $owaexturl -Confirm:$false
-Get-EcpVirtualDirectory -server $Exchange2019Server | Set-EcpVirtualDirectory -internalurl $ecpinturl -externalurl $ecpexturl -Confirm:$false
-Get-WebServicesVirtualDirectory -server $Exchange2019Server | Set-WebServicesVirtualDirectory -internalurl $ewsinturl -externalurl $ewsexturl -Confirm:$false
-Get-ActiveSyncVirtualDirectory -Server $Exchange2019Server | Set-ActiveSyncVirtualDirectory -internalurl $easinturl -externalurl $easexturl -Confirm:$false
-Get-OabVirtualDirectory -Server $Exchange2019Server | Set-OabVirtualDirectory -internalurl $oabinturl -externalurl $oabexturl -Confirm:$false
-Get-MapiVirtualDirectory -Server $Exchange2019Server | Set-MapiVirtualDirectory -externalurl $mapiexturl -internalurl $mapiinturl -Confirm:$false
-Get-OutlookAnywhere -Server $Exchange2019Server | Set-OutlookAnywhere -externalhostname $OutlAnyExt -internalhostname $OutlAnyInt -ExternalClientsRequireSsl:$true -InternalClientsRequireSsl:$true -ExternalClientAuthenticationMethod 'Negotiate' -Confirm:$false
-Get-ClientAccessService $Exchange2019Server | Set-ClientAccessService -AutoDiscoverServiceInternalUri $autodiscoverhostname -Confirm:$false
+Get-OwaVirtualDirectory -Server $NeuerExchange | Set-OwaVirtualDirectory -internalurl $owainturl -externalurl $owaexturl -Confirm:$false
+Get-EcpVirtualDirectory -server $NeuerExchange | Set-EcpVirtualDirectory -internalurl $ecpinturl -externalurl $ecpexturl -Confirm:$false
+Get-WebServicesVirtualDirectory -server $NeuerExchange | Set-WebServicesVirtualDirectory -internalurl $ewsinturl -externalurl $ewsexturl -Confirm:$false
+Get-ActiveSyncVirtualDirectory -Server $NeuerExchange | Set-ActiveSyncVirtualDirectory -internalurl $easinturl -externalurl $easexturl -Confirm:$false
+Get-OabVirtualDirectory -Server $NeuerExchange | Set-OabVirtualDirectory -internalurl $oabinturl -externalurl $oabexturl -Confirm:$false
+Get-MapiVirtualDirectory -Server $NeuerExchange | Set-MapiVirtualDirectory -externalurl $mapiexturl -internalurl $mapiinturl -Confirm:$false
+Get-OutlookAnywhere -Server $NeuerExchange | Set-OutlookAnywhere -externalhostname $OutlAnyExt -internalhostname $OutlAnyInt -ExternalClientsRequireSsl:$true -InternalClientsRequireSsl:$true -ExternalClientAuthenticationMethod 'Negotiate' -Confirm:$false
+Get-ClientAccessService $NeuerExchange | Set-ClientAccessService -AutoDiscoverServiceInternalUri $autodiscoverhostname -Confirm:$false
 #Display setttings
 Get-OwaVirtualDirectory | fl server,externalurl,internalurl
 Get-EcpVirtualDirectory | fl server,externalurl,internalurl
