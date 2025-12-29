@@ -79,7 +79,7 @@ foreach ($service in $services) {
 
 #Alle Disabled wieder auf automatic stellen
 
-Get-Service | Where-Object { $_.DisplayName –like “Microsoft Exchange *” } | Set-Service –StartupType Automatic
+Get-Service | Where-Object { $_.DisplayName -like "Microsoft Exchange *" } | Set-Service -StartupType Automatic
 
 #Die Dienste danach starten
 
